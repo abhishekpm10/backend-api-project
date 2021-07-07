@@ -37,24 +37,17 @@ api.get('/codeforces',(req,res)=>{
             })
             let $ = cheerio.load(respose);
 
-
-            title1 = $(".contestList > div:nth-child(2) > div:nth-child(6) > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1)").text().trim();
-            time1 = $(" #pageContent > div.contestList > div.datatable > div:nth-child(6) > table > tbody > tr:nth-child(2) > td:nth-child(4) ").text().trim();
-
-            title2 = $(".contestList > div:nth-child(2) > div:nth-child(6) > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1)").text().trim();
-            time2 = $("#pageContent > div.contestList > div.datatable > div:nth-child(6) > table > tbody > tr:nth-child(3) > td:nth-child(4)").text().trim();
-            
             let i=2;
             while(1)
             {
-                title1 = $(`.contestList > div:nth-child(2) > div:nth-child(6) > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(${i}) > td:nth-child(1)`).text().trim();
-                time1 = $(` #pageContent > div.contestList > div.datatable > div:nth-child(6) > table > tbody > tr:nth-child(${i}) > td:nth-child(4) `).text().trim();
+                contestName = $(`.contestList > div:nth-child(2) > div:nth-child(6) > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(${i}) > td:nth-child(1)`).text().trim();
+                time = $(` #pageContent > div.contestList > div.datatable > div:nth-child(6) > table > tbody > tr:nth-child(${i}) > td:nth-child(4) `).text().trim();
                 i++;
 
-                if (!time1)
+                if (!time)
                     break;
                 imdbData.push({
-                    title1, time1
+                    i,contestName, time
                 });
                 
             }
@@ -91,14 +84,14 @@ api.get('/atcoder', (req, res) => {
 
             let i = 1;
             while (1) {
-                title1 = $(`#contest-table-upcoming > div > div > table > tbody > tr:nth-child(${i}) > td:nth-child(2) > a`).text().trim();
-                time1 = $(`#contest-table-upcoming > div > div > table > tbody > tr:nth-child(${i}) > td:nth-child(3)`).text().trim();
+                contestName = $(`#contest-table-upcoming > div > div > table > tbody > tr:nth-child(${i}) > td:nth-child(2) > a`).text().trim();
+                time = $(`#contest-table-upcoming > div > div > table > tbody > tr:nth-child(${i}) > td:nth-child(3)`).text().trim();
                 i++;
 
-                if (!time1)
+                if (!time)
                     break;
                 imdbData.push({
-                    title1, time1
+                    i,contestName, time
                 });
 
             }
