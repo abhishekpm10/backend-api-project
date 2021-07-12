@@ -9,7 +9,7 @@ const { gzip } = require("zlib");
 
 
 
-api.listen(3000,()=>{
+api.listen(3001,()=>{
     console.log('API up and running');
 });
 
@@ -40,6 +40,7 @@ api.get('/codeforces',(req,res)=>{
             let i=2;
             while(1)
             {
+                date = $(".contestList > div:nth-child(2) > div:nth-child(6) > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(3) > a:nth-child(1)").text().trim()
                 contestName = $(`.contestList > div:nth-child(2) > div:nth-child(6) > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(${i}) > td:nth-child(1)`).text().trim();
                 time = $(` #pageContent > div.contestList > div.datatable > div:nth-child(6) > table > tbody > tr:nth-child(${i}) > td:nth-child(4) `).text().trim();
                 i++;
@@ -47,7 +48,7 @@ api.get('/codeforces',(req,res)=>{
                 if (!time)
                     break;
                 imdbData.push({
-                    i,contestName, time
+                    i,date,contestName, time
                 });
                 
             }
@@ -86,12 +87,13 @@ api.get('/atcoder', (req, res) => {
             while (1) {
                 contestName = $(`#contest-table-upcoming > div > div > table > tbody > tr:nth-child(${i}) > td:nth-child(2) > a`).text().trim();
                 time = $(`#contest-table-upcoming > div > div > table > tbody > tr:nth-child(${i}) > td:nth-child(3)`).text().trim();
+                url ="https://atcoder.jp/contests/"
                 i++;
 
                 if (!time)
                     break;
                 imdbData.push({
-                    i,contestName, time
+                    i,url,date,contestName, time
                 });
 
             }
@@ -102,6 +104,50 @@ api.get('/atcoder', (req, res) => {
             // res.send(`${title1} ${time1}  = name of contest , ${title2} ${time2}`);
             //res.send(`${imdbData}`);
             res.json(imdbData);
+        }
+
+    )();
+
+})
+
+const fetch = require('node-fetch');
+
+api.get('/codechef', (req, res) => {
+    let title;
+    (
+        async () => {
+            let imdbData = [];
+            fetch('https://kontests.net/api/v1/code_chef')
+                .then(res => res.json())
+                .then(json => {
+                    imdbData.push({
+                        json
+                    });
+                    console.log(imdbData[0].json)
+                    res.json(imdbData[0].json);
+                })
+
+        }
+
+    )();
+
+})
+
+api.get('/all', (req, res) => {
+    let title;
+    (
+        async () => {
+            let imdbData = [];
+            fetch('https://kontests.net/api/v1/all')
+                .then(res => res.json())
+                .then(json => {
+                    imdbData.push({
+                        json
+                    });
+                    // console.log(imdbData[0].json)
+                    res.json(imdbData[0].json);
+                })
+
         }
 
     )();
