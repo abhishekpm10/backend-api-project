@@ -8,7 +8,7 @@ const fs = require("fs")
 const { gzip } = require("zlib");
 
 
-
+const port=process.env.PORT||3001;
 api.listen(3001,()=>{
     console.log('API up and running');
 });
