@@ -5,7 +5,7 @@ Do a get request to have all the upcoming contests from all or codechef , codefo
 4) Atcoder: https://backend-api-project.vercel.app/atcoder
 
 You will get data having following format:
-name : string
-url : string 
-start_time :string 
-end_time : string
+1) name : string
+2) url : string 
+3) start_time :string 
+4) end_time : string
